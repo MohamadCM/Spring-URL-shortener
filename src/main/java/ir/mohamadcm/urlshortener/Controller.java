@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
 
 @RestController
 public class Controller {
@@ -22,6 +23,7 @@ public class Controller {
         return new Greeting(counter.incrementAndGet(), String.format(template, name));
     }
     @PostMapping("url")
+    @ResponseStatus( HttpStatus.CREATED )
     public URL addURL(@RequestBody URL newURL) {
         repository.save(newURL);
         return newURL;
