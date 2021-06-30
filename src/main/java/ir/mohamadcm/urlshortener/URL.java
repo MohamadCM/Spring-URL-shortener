@@ -1,10 +1,19 @@
 package ir.mohamadcm.restservice;
 
+import org.springframework.data.annotation.Id;
+
 
 public class URL {
-    private final String oldAddress;
-    private final String newAddress;
-    public URL(String oldAddress, String newAddress){
+    @Id
+    private String id;
+
+    private String oldAddress;
+    private String newAddress;
+
+    public URL() {
+    }
+
+    public URL(String oldAddress, String newAddress) {
         this.oldAddress = oldAddress;
         this.newAddress = newAddress;
     }
@@ -15,5 +24,10 @@ public class URL {
 
     public String getOldAddress() {
         return oldAddress;
+    }
+
+    @Override
+    public String toString(){
+        return String.format("URL [old: %s, new: %s, id:%d]", oldAddress, newAddress, id);
     }
 }
