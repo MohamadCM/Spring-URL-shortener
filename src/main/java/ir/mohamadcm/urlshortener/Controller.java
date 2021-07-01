@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.view.RedirectView;
+import java.lang.Object;
 
 @RestController
 public class Controller {
@@ -30,10 +31,20 @@ public class Controller {
         return newURL;
     }
     @GetMapping("/{path}")
-    public RedirectView index(@PathVariable String path) {
+    public RedirectView redirect(@PathVariable String path) {
         URL url = repository.findByNewAddress(path);
+        System.out.println(url == null);
         if(url == null)
-            return null;
+            return new RedirectView("/url-not-found?path=" + path);
         return new RedirectView(url.getOldAddress());
+    }
+
+    @GetMapping("/url-not-found")
+    public String notFound(@RequestParam(value = "path", defaultValue = "") String path) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Sorry, no URL for ")
+                .append(path)
+                .append(" Was found!");
+        return stringBuilder.toString();
     }
 }
