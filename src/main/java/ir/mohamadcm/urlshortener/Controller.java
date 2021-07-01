@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 public class Controller {
@@ -27,5 +28,12 @@ public class Controller {
     public URL addURL(@RequestBody URL newURL) {
         repository.save(newURL);
         return newURL;
+    }
+    @GetMapping("/{path}")
+    public RedirectView index(@PathVariable String path) {
+        URL url = repository.findByNewAddress(path);
+        if(url == null)
+            return null;
+        return new RedirectView(url.getOldAddress());
     }
 }
