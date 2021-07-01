@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.index.Index;
 import org.springframework.data.mongodb.core.*;
 import org.springframework.data.mongodb.core.mapping.*;
 
-@Document
+@Document(collection = "URLs")
 public class URL {
     @Id
     private String id;

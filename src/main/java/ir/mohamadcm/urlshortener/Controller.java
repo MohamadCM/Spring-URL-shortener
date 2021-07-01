@@ -32,7 +32,7 @@ public class Controller {
             repository.save(newURL);
             return ResponseEntity.status(HttpStatus.CREATED).body(newURL);
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorMessage("Sorry, URL already exits", null));
         }
     }
 
