@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.lang.Object;
@@ -27,10 +27,13 @@ public class Controller {
     }
 
     @PostMapping("url")
-    @ResponseStatus(HttpStatus.CREATED)
-    public URL addURL(@RequestBody URL newURL) {
-        repository.save(newURL);
-        return newURL;
+    public ResponseEntity addURL(@RequestBody URL newURL) {
+        try {
+            repository.save(newURL);
+            return ResponseEntity.status(HttpStatus.CREATED).body(newURL);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+        }
     }
 
     @GetMapping("/{path}")
