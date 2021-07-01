@@ -1,17 +1,23 @@
 package ir.mohamadcm.restservice;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.*;
+import org.springframework.data.domain.*;
+import org.springframework.data.mongodb.core.index.Index;
+import org.springframework.data.mongodb.core.*;
+import org.springframework.data.mongodb.core.mapping.*;
 
-
+@Document
 public class URL {
     @Id
     private String id;
-
+    @Indexed(unique = true)
     private String oldAddress;
     private String newAddress;
 
     public URL() {
     }
+
 
     public URL(String oldAddress, String newAddress) {
         this.oldAddress = oldAddress;
@@ -27,7 +33,7 @@ public class URL {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("URL [old: %s, new: %s, id:%d]", oldAddress, newAddress, id);
     }
 }

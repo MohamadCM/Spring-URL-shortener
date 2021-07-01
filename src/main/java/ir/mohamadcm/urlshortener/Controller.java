@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.view.RedirectView;
+
 import java.lang.Object;
 
 @RestController
@@ -24,17 +25,18 @@ public class Controller {
     public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
         return new Greeting(counter.incrementAndGet(), String.format(template, name));
     }
+
     @PostMapping("url")
-    @ResponseStatus( HttpStatus.CREATED )
+    @ResponseStatus(HttpStatus.CREATED)
     public URL addURL(@RequestBody URL newURL) {
         repository.save(newURL);
         return newURL;
     }
+
     @GetMapping("/{path}")
     public RedirectView redirect(@PathVariable String path) {
         URL url = repository.findByNewAddress(path);
-        System.out.println(url == null);
-        if(url == null)
+        if (url == null)
             return new RedirectView("/url-not-found?path=" + path);
         return new RedirectView(url.getOldAddress());
     }
