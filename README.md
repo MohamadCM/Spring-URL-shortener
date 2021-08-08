@@ -1,7 +1,7 @@
 # Spring-URL-shortener
-A URL shortner server built using Java Spring framework and mongoDB.
+URL shortener server built using Java Spring framework and MongoDB.
 
-This codebase uses gradle build tools.
+This codebase uses Gradle build tools.
 
 
 ## Compile and run for development
